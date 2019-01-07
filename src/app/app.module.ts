@@ -3,32 +3,40 @@ import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 
 import { MyApp } from './app.component';
-import { HomePage } from '../pages/home/home';
-import { ListPage } from '../pages/list/list';
+import { WeatherPage } from "../pages/weather/weather";
+import { LocationsPage } from "../pages/locations/locations";
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
+import { WeatherServiceProvider } from '../providers/weather-service';
+import { GeocodeServiceProvider } from '../providers/geocode-service';
+
+import { HttpClientModule } from "@angular/common/http";
+
 @NgModule({
   declarations: [
     MyApp,
-    HomePage,
-    ListPage
+    WeatherPage,
+    LocationsPage
   ],
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
+    HttpClientModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    HomePage,
-    ListPage
+    WeatherPage,
+    LocationsPage
   ],
   providers: [
     StatusBar,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    WeatherServiceProvider,
+    GeocodeServiceProvider
   ]
 })
 export class AppModule {}

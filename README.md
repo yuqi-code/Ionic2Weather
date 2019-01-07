@@ -12,3 +12,12 @@ $ cd Ionic2Weather
 ```
 
 With Ionic CLI version 3, the use of third party templates was removed. Once you have created the starter Ionic application using the steps above, download this repo and copy over the src and www directories into the newly created folder, replacing the initial src and www directory. You will still need to follow any additional steps in the book.
+
+*s1_init
+
+*s2_weather
+
+```bash
+add weather, locations pages
+load in static weather data(loading dialogs).
+```
