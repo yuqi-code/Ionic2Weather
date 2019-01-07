@@ -21,3 +21,9 @@ With Ionic CLI version 3, the use of third party templates was removed. Once you
 add weather, locations pages
 load in static weather data(loading dialogs).
 ```
+
+*s3_dynamic_location
+
+```bash
+add cordova-plugin-geolocation, dynamic locations
+```
