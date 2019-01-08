@@ -11,9 +11,11 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { WeatherServiceProvider } from '../providers/weather-service';
 import { GeocodeServiceProvider } from '../providers/geocode-service';
+import { LocationsServiceProvider } from '../providers/locations-service';
 
 import { HttpClientModule } from "@angular/common/http";
 import { Geolocation } from "@ionic-native/geolocation";
+import { PipesModule } from "../pipes/pipes.module";
 
 @NgModule({
   declarations: [
@@ -24,7 +26,8 @@ import { Geolocation } from "@ionic-native/geolocation";
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
-    HttpClientModule
+    HttpClientModule,
+    PipesModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -38,7 +41,8 @@ import { Geolocation } from "@ionic-native/geolocation";
     Geolocation,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     WeatherServiceProvider,
-    GeocodeServiceProvider
+    GeocodeServiceProvider,
+    LocationsServiceProvider
   ]
 })
 export class AppModule {}

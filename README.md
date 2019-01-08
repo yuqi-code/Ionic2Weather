@@ -27,3 +27,10 @@ load in static weather data(loading dialogs).
 ```bash
 add cordova-plugin-geolocation, dynamic locations
 ```
+
+*s4_all_locations
+
+```bash
+getting other locations' weather, pull to refresh
+editing the locations
+```

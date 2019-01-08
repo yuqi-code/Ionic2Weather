@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import  'rxjs/add/operator/map';
 import { CurrentLoc } from "../interfaces/current-loc";
+// import { SERVE_URL } from "../app/app.config";
 
 /*
   Generated class for the WeatherServiceProvider provider.
@@ -24,7 +25,8 @@ export class WeatherServiceProvider {
 
     return new Promise(resolve => {
       // this.http.get<Response>('assets/data/data.json')
-      this.http.get<Response>('/api/forecast/' + currentLoc.lat + ',' + currentLoc.lon)
+      this.http.get<Response>('/api/' + currentLoc.lat + ',' + currentLoc.lon)  //info: server doesn't support cors.
+      // this.http.get<Response>(SERVE_URL + '/' + currentLoc.lat + ',' + currentLoc.lon)
         // .map(res => res.json())
         .subscribe(data => {
           this.data = data;

@@ -25,6 +25,7 @@ export class WeatherPage {
   loader: LoadingController;
   refresher: Refresher;
   currentLoc: CurrentLoc = { lat: 0, lon: 0 };
+  pageTitle: string = 'Current Location';
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
@@ -35,17 +36,34 @@ export class WeatherPage {
       content: "Loading weather data..."
     });
 
-    loader.present();
+    // loader.present();
 
-    geolocation.getCurrentPosition().then(pos => {
-      console.log('lat: ' + pos.coords.latitude + ', lon: ' + pos.coords.longitude);
-      this.currentLoc.lat = pos.coords.latitude;
-      this.currentLoc.lon = pos.coords.longitude;
-      this.currentLoc.timestamp = pos.timestamp;
+    this.pageTitle = this.navParams.get('title');
 
-      return this.currentLoc;
-    }).then(currentLoc => {
-      this.weatherService.getWeather(currentLoc).then(theResult => {
+    let loc = this.navParams.get('geoloc');
+    if(loc === undefined) {
+      geolocation.getCurrentPosition().then(pos => {
+        console.log('lat: ' + pos.coords.latitude + ', lon: ' + pos.coords.longitude);
+        this.currentLoc.lat = pos.coords.latitude;
+        this.currentLoc.lon = pos.coords.longitude;
+        this.currentLoc.timestamp = pos.timestamp;
+
+        return this.currentLoc;
+      }).then(currentLoc => {
+        this.weatherService.getWeather(currentLoc).then(theResult => {
+          this.theWeather = theResult;
+          this.currentData = this.theWeather.currently;
+          this.day1 = this.theWeather.daily.data[0];
+          this.day2 = this.theWeather.daily.data[1];
+          this.day3 = this.theWeather.daily.data[2];
+
+          loader.dismiss();
+        });
+      });
+    }
+    else{
+      this.currentLoc = loc;
+      weatherService.getWeather(this.currentLoc).then(theResult => {
         this.theWeather = theResult;
         this.currentData = this.theWeather.currently;
         this.day1 = this.theWeather.daily.data[0];
@@ -54,7 +72,7 @@ export class WeatherPage {
 
         loader.dismiss();
       });
-    });
+    }
   }
 
   ionViewDidLoad() {
@@ -62,8 +80,17 @@ export class WeatherPage {
   }
 
   doRefresh(refresher){
-    setTimeout(() => {
+    // setTimeout(() => {
+    //   refresher.complete();
+    // }, 2000)
+
+    this.weatherService.getWeather(this.currentLoc).then(theResult => {
+      this.theWeather = theResult;
+      this.currentData = this.theWeather.currently;
+      this.day1 = this.theWeather.daily.data[0];
+      this.day2 = this.theWeather.daily.data[1];
+      this.day3 = this.theWeather.daily.data[2];
       refresher.complete();
-    }, 2000)
+    });
   }
 }
